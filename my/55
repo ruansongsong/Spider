@@ -1,0 +1,50 @@
+#coding:utf-8
+from bs4 import BeautifulSoup
+import sys
+import string
+reload(sys)
+sys.setdefaultencoding('utf-8')
+html = """
+            <div class="article-content">
+                   <img src="http://p1.pstatp.com/large/7178/78782176" img_width="369" img_height="516" alt="海尔热水器发布净水洗技术破解百年难题" 
+onerror="javascript:errorimg.call(this);" ><p>8月20日，以“智汇安全 净享健康”为主题的2015全球用水趋势发布暨海尔净水洗热水器产品上市体验会在北京召开。海尔热水器正式发布了行业首个净水洗技术，从根源上解决了行业存在近百年的“脏水洗澡”问题，引起行业和众多媒体的关注。</p><p>自1920年德国建立世界第一条电热水器生产线以来，电热水器为人们的生活带来了极大的便利，但电热水器洗澡水脏、细菌滋生等问题却一直被忽视。去年8月份，有河南网友抱怨家里一周不用的热水器流出了变质的臭水，这个存在了近百年的脏水问题才再次得到重视。</p><p>据环保机构发布的实验报告指出，洗澡水发臭的原因有两个：自来水中本身含有多种细菌，以及电热水器内胆底部会存在一部分不流动的死水。为了改变“细菌水”洗澡的现状，海尔热水器历经十个月研发的净水洗技术，成为行业内首个专门解决洗澡水不干净的技术。</p><p>记者在现场了解到，该技术囊括了M式注水管专利技术和平流式热动力系统专利技术，使进入胆内的水平铺上涌，有效加强胆内水的流动性，使热水器里水的新鲜度达到97%。同时配有的三重抑菌方式，有效抑制常见细菌的滋生，其中超高温灭菌专门针对芽胞杆菌，能消灭99%的细菌，真正实现了用新鲜水洗澡。海尔热水器净水洗技术也获得了世界纪录协会的官方认证，被鉴定为世界80L储水式电热水器换水新鲜度最高的热水器。</p><p>此外，应用了净水洗技术的净水洗热水器还能实现智能操控。据现场工作人员介绍，用户下载APP后就能在线查看、控制热水器运行状况，当需要进行内胆清洗或者更换镁棒，APP会推送保养消息到手机中，十分方便。</p><p>值得一提的是，海尔热水器在发布会上联合中科院、中国家用电器协会等权威机构共同发布了海尔热水器净水洗标识，消费者后期在购买电热水器时，只需要认准净水洗标识，就能买到行业最健康的热水器产品。</p><p>今年7月份，世界权威独立机构佰世越发布的最新数据显示，海尔电热水器2014年全球销量第一。对此，业内专家分析认为，此次海尔重新布局热水器市场，不仅迎合了全球用户需求，还将会在热水器行业刮起新一轮“健康风”。而随着7月11日海尔首次向全世界展示的透明互联工厂，也预示着用户将在海尔产品研发及生产中扮演着越来越重要的角色。</p>
+               <img src="xxxx.com" />
+               </div>
+           </div>   
+"""
+soup = BeautifulSoup(html)
+#tag=soup.a
+#获取标签属性
+#print soup.p['name']
+#print soup.p.get('name')
+#获取标签内容
+#print soup.p.string
+#查找
+get=soup.find_all(attrs={'class': 'article-content'})
+#img=soup.find_all('img')
+paragraph=get[0].find_all('p')
+paragraph1=get[0].find_all('img')
+#print len(get)
+content=[]
+for i in range(len(paragraph)):
+    temp=paragraph[i].get_text()
+   # print type(paragraph[i].get_text())
+   # temp=str(paragraph[i])
+    #temp.replace("None","#") 
+    #print temp
+    content.append(temp)
+#a=str(content)
+
+#print type(content)
+a='\n'.join(content)
+#print len(img)
+#print img
+print paragraph1[].src
+
+'''
+print a
+f=open('a.txt','a')
+f.write(a)
+#print 
+#print ' '.join(a)
+'''

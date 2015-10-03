@@ -1,0 +1,40 @@
+#coding:utf-8
+#如何提高下载速度，多线程？
+import urllib
+import urllib2
+import re
+#获取txt中的url，返回URL列
+def get_url():
+	object_url=open("C:/Users/ruans/Desktop/Sumer vacation/python/ip/url.txt","r")
+	url_list=object_url.readlines()
+	object_url.close()
+	return url_list
+#对url加报头，返回html
+def get_html(url):
+	req=urllib2.Request(url)
+	req.add_header('User-Agent','Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36')
+	html=urllib2.urlopen(req).read()
+	return html
+#匹配html中的图片地址，返回图片地址
+def get_imglist(html):
+	reg=r"http:.+?\.jpg"
+	img_re=re.compile(reg)
+	img_list=re.findall(img_re,html)
+	return img_list
+#讲图片写入指定文件
+#img_name解决的问题是文件命名问题，不然会由于文件名重复而覆盖
+def write_img(img_list,img_name):
+	x=img_name
+	for img_url in img_list:
+		urllib.urlretrieve(img_url,'C:/Users/ruans/Desktop/Sumer vacation/python/tempFile/%s.jpg' % x)
+		x+=1
+	return x
+#主函数
+url_list=get_url()
+img_name=0
+for index in range(len(url_list)):
+	html=get_html(url_list[index])
+	get_img=get_imglist(html)
+	write_img(get_img,img_name)
+	#获取文件名数字序列
+	img_name=write_img(get_img,img_name)

@@ -1,0 +1,5 @@
+#coding:utf-8
+import urllib
+url="\xe5\x88\xb0\xe8\xb4\xb4\xe5\x90\xa7\xe9\xa6\x96\xe9\xa1\xb5"
+url_quote=urllib.unquote(url)
+print url_quote

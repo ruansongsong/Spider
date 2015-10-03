@@ -1,0 +1,146 @@
+#coding:utf-8
+import urllib
+import urllib2
+import json
+import re
+import os
+import sys
+from bs4 import BeautifulSoup
+reload(sys)
+sys.setdefaultencoding('utf8')
+#获取txt中的url，返回URL列
+#对url加报头，返回html
+def get_json(url):
+	headers={
+		'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.130 Safari/537.36'
+	}
+	req=urllib2.Request(url)
+	for keys in headers:
+		req.add_header(keys,headers[keys])
+	html = urllib2.urlopen(req)
+	get_json = json.load(html)
+	return get_json
+def get_url_title(get_json):
+	html=get_json
+	share_url=[]
+	title=[]
+	for i in range(len(html['data'])):
+		share_url.append(html['data'][i]['share_url'])
+		title.append(html['data'][i]['title'])
+	return (share_url,title)
+def creat_file(share_url,title):
+	#判断目录是否存在
+	#paths=[]
+	#filenames=[]
+	your_files=[]
+	for i in range(len(share_url)):
+		path='E:/ruansongsong/'+str(i)
+		#paths.append(path)
+		#filename="news.txt"
+		isExists=os.path.exists(path)
+		if not isExists:
+		    os.makedirs(path)		
+		your_files.append(path)
+		#write_ip=file(your_file,"w+")
+	return your_files
+#写入到txt文件
+def get_content(share_url):
+	headers={
+		'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.130 Safari/537.36'
+	}
+	get_content=[]
+	img_numbers=[]
+	get_imgs=[]
+	for i in range(len(share_url)):
+		req=urllib2.Request(share_url[i])
+		for keys in headers:
+			req.add_header(keys,headers[keys])
+		html = urllib2.urlopen(req).read()
+		print share_url[i]
+		soup = BeautifulSoup(html)
+		if (bool(soup.find_all(attrs={'class': 'article-content'}))):
+			get=soup.find_all(attrs={'class': 'article-content'})
+		elif (bool(soup.find_all('article'))):
+			get=soup.find_all('article')
+		elif (bool(soup.find_all(attrs={'class':'rich_media_content'}))):
+			get=soup.find_all(attrs={'class':'rich_media_content'})
+		elif (bool(soup.find_all(attrs={'class':'content-main'}))):
+			get=soup.find_all(attrs={'class':'content-main'})
+		elif (bool(soup.find_all('div'))):
+			get=soup.find_all('div')
+		else:
+			get='''<p>error</p>'''
+		#if bool(get[0].find_all('p')):
+		paragraph=get[0].find_all('p')
+		#else:
+		#	continue
+		paragraph1=get[0].find_all('img')
+		'''
+
+		if bool(get[0].find_all('img')):
+			paragraph1=get[0].find_all('img')
+		else:
+			continue
+		'''
+		get_img=[]
+		print "获取到的图片个数"+str(len(paragraph1))
+		img_numbers.append(len(paragraph1))
+		for i in range(len(paragraph1)):
+		  get_img.append(paragraph1[i].get('src'))
+		#print len(paragraph)
+		#print len(get)
+		content=[]
+		for i in range(len(paragraph)):
+			temp=paragraph[i].get_text()
+			content.append(temp)
+		a='\n'.join(content)
+		get_content.append(a)
+		get_imgs.extend(get_img)
+		#a=str(content)
+		#print len(content)
+		#print type(content)
+	return (get_content,get_imgs,img_numbers)
+
+#img_name解决的问题是文件命名问题，不然会由于文件名重复而覆盖
+'''
+def write_img(img_list,img_name):
+	x=img_name
+	for img_url in img_list:
+		urllib.urlretrieve(img_url,'C:/Users/ruans/Desktop/Sumer vacation/python/tempFile/%s.jpg' % x)
+		x+=1
+	return x
+'''
+def write_all_list(urls,titles,contents,imgs,numbers,get_file):
+	x=0
+	temp=0
+	search = 'uploads/image/'
+	for i in range(len(urls)):
+		write_all_list=open(get_file[i]+"/"+"news.txt",'a')
+		#a.append(href_list[i])
+		write_all_list.writelines("url："+urls[i]+"\n"+"title："+titles[i]+"\n"+"正文"+"\n"+contents[i]+"\n")
+		temp+=int(numbers[i])
+		while(x<temp):
+			temp_imgs_url=imgs[x]
+			if (temp_imgs_url==None):
+				x+=1
+				continue
+			if ((temp_imgs_url.find(search))>0):
+				temp_imgs_url="http://www.qdaily.com"+temp_imgs_url
+			print temp_imgs_url
+			urllib.urlretrieve(temp_imgs_url,get_file[i]+"/"+str(x)+".jpg")
+			x+=1
+	print x
+	write_all_list.close()
+url="http://toutiao.com/api/article/recent/?source=2&count=20&category=news_tech&max_behot_time"
+json=get_json(url)
+(urls,titles)=get_url_title(json)
+get_file=creat_file(urls,titles)
+(contents,imgs,numbers)=get_content(urls)
+#print len(get_content(share_url))
+#print share_url
+print len(numbers)
+print imgs
+print len(imgs)
+write_all_list(urls,titles,contents,imgs,numbers,get_file)
+#print share_url
+#print title

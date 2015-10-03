@@ -1,0 +1,12 @@
+<!--feed_action-->
+<div class="feed_action clearfix">
+  <!-- -->
+  <ul class="feed_action_info feed_action_row4">
+    <li><a href="javascript:void(0);" action-type="login"  suda-data="key=tblog_search_weibo&value=weibo_h_2_s"><span class="line S_line1">收藏</span></a></li>
+    <li><a href="javascript:void(0);" action-data='allowForward=1&url=http://weibo.com/2158939904/CxsjEdFHY&mid=3879736743258594&name=Z焕城&uid=2158939904&domain=&suda-data=key%3Dtblog_search_weibo%26value%3Dweibo_h_2_z_z' action-type="login"    suda-data="key=tblog_search_weibo&value=weibo_h_2_z"><span class="line S_line1">转发<em>57</em></span></a></li>
+    <li><a href="javascript:void(0);" action-data='pageid=weibo&suda-data=key%3Dtblog_search_weibo%26value%3Dweibo_h_2_p_p' action-type="login"
+      suda-data="key=tblog_search_weibo&value=weibo_h_2_p"><span class="line S_line1">评论<em>26</em></span></a></li>
+      <li><a title="赞" action-data="mid=3879736743258594" action-type="login" href="javascript:void(0);"    suda-data="key=tblog_search_weibo&value=weibo_h_2_zan"><span class="line S_line1"><i class="W_ico12 icon_praised_b"></i><em>47</em></span></a></li>
+    </ul>
+  </div>
+  <!--/feed_action-->

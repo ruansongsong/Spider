@@ -1,0 +1,6 @@
+#coding:utf-8
+a="abcd"
+b=[]
+for i in range(len(a)):
+	b.append(a[i])
+print b

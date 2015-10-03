@@ -1,0 +1,24 @@
+#coding:utf-8
+import urllib,urllib2,cookielib
+mycookie = urllib2.HTTPCookieProcessor(cookielib.CookieJar())
+openner = urllib2.build_opener(mycookie)
+request = urllib2.Request('http:/*")
+request.add_header("Accept-Language", "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3")
+request.add_header("Connection", "keep-alive")
+request.add_header("Accept-Encoding", "gzip, deflate")
+request.add_header("X-Requested-With", "XMLHttpRequest")
+request.add_header("Referer", "http://****")
+cookie_str = "***"
+request.add_header("Cookie", cookie_str)
+html_src = openner.open(request).read()
+print html_src
+'''
+到这里基本已经完事，但你偶尔还会遇到一个问题：乱码
+解决方法：
+import gzip
+from gzip import *
+import os, io
+import StringIO
+
+html_data = GzipFile(fileobj=StringIO(html_src), mode="r").read()
+'''

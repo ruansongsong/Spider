@@ -1,0 +1,39 @@
+#coding:utf-8
+import urllib
+import urllib2
+import json
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+def getStartImage(url):
+    stream = urllib2.urlopen(url)
+    start_image = json.load(stream)
+    return start_image
+url="http://toutiao.com/api/article/recent/?source=2&count=20&category=news_tech"
+html=getStartImage(url)
+for i in range(len(html['data'])):
+	print i
+	print html['data'][i]['share_url']
+	print html['data'][i]['title']
+
+content=""
+for i in range(len(paragraph)):
+    content=content+str(paragraph[i].string)+"\n"
+#print len(content)
+get_content=[]
+print type(content)
+0
+1
+1
+1
+0
+1
+1
+1
+0
+1
+1
+0
+1
+1
+0

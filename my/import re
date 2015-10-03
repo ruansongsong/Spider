@@ -1,0 +1,13 @@
+import urllib
+import os
+
+def Schedule(a,b,c):
+    per = 100.0 * a * b / c
+    if per > 100 :
+        per = 100
+    print '%.2f%%' % per
+
+url = 'http://ia.topit.me/a/2c/f5/1116141198fbff52cao.jpg'
+#local = url.split('/')[-1]
+local = os.path.join('C:/python_study/','1116141198fbff52cao.jpg')
+urllib.urlretrieve(url,local,Schedule)

@@ -1,0 +1,138 @@
+#coding:utf-8
+from bs4 import BeautifulSoup
+import sys
+import string
+reload(sys)
+sys.setdefaultencoding('utf-8')
+html="""
+	<div class="content clearfix" node-type="like">
+	<div class="feed_content wbcon">
+		<a class="W_texta W_fb" nick-name="米粥VickyZ" href="http://weibo.com/904185805" target="_blank" title="米粥VickyZ" usercard="id=1993411097&amp;usercardkey=weibo_mp" suda-data="key=tblog_search_weibo&amp;value=weibo_ss_1_name">
+		米粥VickyZ	    </a>
+		<p class="comment_txt" node-type="feed_list_content" nick-name="新浪湖南">【8月，长白山下！雪！了！<img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/b6/doge_org.gif" title="[doge]" alt="[doge]" type="face" />】今晨，长白山天池主峰飘起雪花，这是该地有气象记录以来首次8月飘雪，也因此创造了过去12个月以来每月都降雪的记录。吉林省气象台预计未来24小时，吉林、延边、长白山保护区将有大到暴雨，局地大暴雨。恭喜长白山获得四季飘雪成就<img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/70/88_org.gif" title="[拜拜]" alt="[拜拜]" type="face" /><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/70/88_org.gif" title="[拜拜]" alt="[拜拜]" type="face" />(<em class="red">央视新闻</em>)网友：起灵归</p>
+	<div class="WB_media_wrap clearfix" node-type="feed_list_media_prev">
+	
+	 	  	  <!-- 图片多余一张只显示音频视频的smallcard -->
+	 	 	 	  <!-- 九宫格 -->
+	  <div class="media_box" node-type="fl_pic_list" action-data="uid=2311694415&pic_ids=89c9a84fgw1evfzza49olg20ad070kjm,89c9a84fgw1evfzzi7179g209y07zx6q,89c9a84fgw1evfzzj131uj20sg0lcmzy,89c9a84fgw1evfzzkepv4j20sg0lcgvm,89c9a84fgw1evfzzldl0pj20sg0lcdli&mid=3880096114632030">
+	   <ul class="WB_media_a WB_media_a_mn clearfix">
+	   	  <li class="WB_pic S_bg2 bigcursor">
+	   <img class="bigcursor" src="http://ww3.sinaimg.cn/square/89c9a84fgw1evfzza49olg20ad070kjm.gif" action-data="pic_id=89c9a84fgw1evfzza49olg20ad070kjm" action-type="fl_pics" 	    			suda-data="key=tblog_search_weibo&value=weibo_h_1_pic"/>
+	  </li>
+	   	  <li class="WB_pic S_bg2 bigcursor">
+	   <img class="bigcursor" src="http://ww1.sinaimg.cn/square/89c9a84fgw1evfzzi7179g209y07zx6q.gif" action-data="pic_id=89c9a84fgw1evfzzi7179g209y07zx6q" action-type="fl_pics" 	    			suda-data="key=tblog_search_weibo&value=weibo_h_1_pic"/>
+	  </li>
+	   	  <li class="WB_pic S_bg2 bigcursor">
+	   <img class="bigcursor" src="http://ww4.sinaimg.cn/square/89c9a84fgw1evfzzj131uj20sg0lcmzy.jpg" action-data="pic_id=89c9a84fgw1evfzzj131uj20sg0lcmzy" action-type="fl_pics" 	    			suda-data="key=tblog_search_weibo&value=weibo_h_1_pic"/>
+	  </li>
+	   	  <li class="WB_pic S_bg2 bigcursor">
+	   <img class="bigcursor" src="http://ww3.sinaimg.cn/square/89c9a84fgw1evfzzkepv4j20sg0lcgvm.jpg" action-data="pic_id=89c9a84fgw1evfzzkepv4j20sg0lcgvm" action-type="fl_pics" 	    			suda-data="key=tblog_search_weibo&value=weibo_h_1_pic"/>
+	  </li>
+	   	  <li class="WB_pic S_bg2 bigcursor">
+	   <img class="bigcursor" src="http://ww1.sinaimg.cn/square/89c9a84fgw1evfzzldl0pj20sg0lcdli.jpg" action-data="pic_id=89c9a84fgw1evfzzldl0pj20sg0lcdli" action-type="fl_pics" 	    			suda-data="key=tblog_search_weibo&value=weibo_h_1_pic"/>
+	  </li>
+	   	   	   </ul>
+	  </div>
+	  <!-- /九宫格 -->
+	 	  	  	 	</div>		<dl class="comment" style="display: none;"
+			node-type="feed_list_media_disp"></dl>
+	  	    </div>
+	<div class="feed_from W_textb">
+	  <a href="http://weibo.com/2311694415/CxBFhjr0a" target="_blank" title="2015-08-25 14:27" date="1440570465000" class="W_textb" node-type="feed_list_item_date" 	  	  suda-data="key=tblog_search_weibo&value=weibo_h_1_time" >8月26日 14:27</a> 来自 <a target="_blank" href="http://weibo.com/" rel="nofollow">微博 weibo.com</a>	</div>
+	</div>
+		</div>
+		<!--/feed_detail-->
+  </dl>
+		<!-- /feed -->
+	
+	</div>
+	<div class="content clearfix" node-type="like">
+	<div class="feed_content wbcon">
+			<a class="W_texta W_fb" nick-name="唧唧如我" href="http://weibo.com/u/2562340197" target="_blank" title="唧唧如我" usercard="id=2562340197&usercardkey=weibo_mp"		suda-data="key=tblog_search_weibo&value=weibo_ss_1_name" class="name_txt W_fb">
+		唧唧如我	    </a>
+		<p class="comment_txt" node-type="feed_list_content" nick-name="唧唧如我">天津港事件已经调查出责任人，那淄博化工厂爆炸就不需要追究了吗？<a href="http://weibo.com/n/%E6%B5%8E%E5%8D%97%E5%B8%82%E6%B5%8E%E5%8D%97%E4%BA%8B" usercard="name=济南市济南事" suda-data="key=tblog_search_weibo&value=weibo_feed_at" target="_blank" class=W_linkb>@济南市济南事</a> <a href="http://weibo.com/n/%E6%B5%8E%E5%8D%97%E7%94%9F%E6%B4%BB" usercard="name=济南生活" suda-data="key=tblog_search_weibo&value=weibo_feed_at" target="_blank" class=W_linkb>@济南生活</a> <a href="http://weibo.com/n/%E6%9D%A8%E6%BE%9C" usercard="name=杨澜" suda-data="key=tblog_search_weibo&value=weibo_feed_at" target="_blank" class=W_linkb>@杨澜</a> <a href="http://weibo.com/n/%E8%94%A1%E5%BA%B7%E6%B0%B8" usercard="name=蔡康永" suda-data="key=tblog_search_weibo&value=weibo_feed_at" target="_blank" class=W_linkb>@蔡康永</a> <a href="http://weibo.com/n/%E5%A4%AE%E8%A7%86%E6%96%B0%E9%97%BB" usercard="name=央视新闻" suda-data="key=tblog_search_weibo&value=weibo_feed_at" target="_blank" class=W_linkb>@<em class="red">央视新闻</em></a> <a href="http://weibo.com/n/%E5%A4%AE%E8%A7%86%E4%B8%80%E5%A5%97" usercard="name=央视一套" suda-data="key=tblog_search_weibo&value=weibo_feed_at" target="_blank" class=W_linkb>@央视一套</a> <a class="W_btn_c6" target="_blank" href="http://t.cn/RyPWfgn" ><span class="W_btn_tag"><em class="W_btn_icon"><i class="icon_cd_link W_ico12"></i><i class="W_vline S_line1_c">|</i></em><em class="W_autocut W_linkb">天津11官员...</em></span></a></p>
+	<div class="WB_media_wrap clearfix" node-type="feed_list_media_prev">
+	
+	 		  	
+	  <div class="WB_media_wrap clearfix">
+   <div class="media_box">
+   <div class="WB_feed_spec S_bg2 S_line1 clearfix">
+    <div class="spec_box clearfix">
+  <div class="WB_feed_spec_pic S_bg1">
+   <a href="http://weibo.com/p/1001593880367441465989" target="_blank" 		suda-data="key=tblog_search_weibo&value=weibo_ss_1_article_url">
+   <img src="http://ww2.sinaimg.cn/large/78ed3187jw1evgul1o7utj20fk08o74k.jpg" alt="天津11官员被抓.责任认定详情" title="天津11官员被抓.责任认定详情">
+   </a>
+  </div>
+    	<div class="WB_feed_spec_info SW_fun">
+  	 <div class="WB_feed_spec_cont">
+   <h4 class="WB_feed_spec_tit W_autocut"><a href="http://weibo.com/p/1001593880367441465989" class="S_func1 W_autocut" target="_blank" 		suda-data="key=tblog_search_weibo&value=weibo_ss_1_article_title">天津11官员被抓.责任认定详情</a></h4>
+   <div class="WB_feed_spec_row W_autocut">
+   <span class="S_txt2">责任认定涉及5个部门及1名个人 天津市交通运输委员会 未认真履行职责，违规发放经营许可证，对瑞海公司违法违规经营活动监管不力 天津安全生产监督管理局、滨海新区安监局 对瑞海公司存在的安全隐患</span>
+   </div>
+   <div class="WB_feed_spec_row W_autocut">
+   <span class="S_txt2">发布者：新浪新闻</span>
+   </div>
+   <div class="WB_feed_spec_clearfix clearfix S_txt">
+    <span class="W_fr">
+    <a class="W_btn_a btn_22px" href="http://weibo.com/p/1001593880367441465989" target="_blank" 		suda-data="key=tblog_search_weibo&value=weibo_ss_1_article_read">马上阅读</a>
+    </span>
+   </div>
+ </div>
+ </div>
+    </div>
+   </div>
+  </div>
+ </div>
+  	<div class="media_box">
+	 	 	  	  	 
+	 	 	 	</div><!-- end mediabod -->
+	</div>		<dl class="comment" style="display: none;"
+			node-type="feed_list_media_disp"></dl>
+	  	    </div>
+	<div class="feed_from W_textb">
+	  <a href="http://weibo.com/2562340197/CxKApwj0e" target="_blank" title="2015-08-27 16:10" date="1440652228000" class="W_textb" node-type="feed_list_item_date" 	  	  suda-data="key=tblog_search_weibo&value=weibo_ss_1_time" >9分钟前</a> 来自 <a target="_blank" target="_blank" href="http://app.weibo.com/t/feed/4P0LxY" rel="nofollow">荣耀6 Plus</a>	</div>
+	</div>
+		</div>
+		<!--/feed_detail-->
+  </dl>
+		<!-- /feed -->
+	
+	</div>
+ """
+def get_details(html):
+	soup=BeautifulSoup(html)
+	#得到作者、作者链接、微博正文
+	div_content=soup.find_all(attrs={'class': 'content clearfix'})
+	#得到发微博时间
+	div_time=soup.find_all(attrs={'class':'feed_from W_textb'})
+	print len(div_time)
+	print div_time
+
+	nick_name=[]
+	nickname_href=[]
+	content_text=[]
+	time=[]
+	#print get_content[0]
+	for i in range(len(div_content)):
+		#查找a标签
+		a_tag=div_content[i].find('a')
+		nick_name.append(a_tag.get('nick-name'))
+		nickname_href.append(a_tag.get('href'))
+		#查找p标签
+		p_tag=div_content[i].find('p')
+		content_text.append(p_tag.get_text())
+	#print get2.get_text()
+	#print len(get2)
+	#得到发微博时间
+	for j in range(len(div_time)):
+		a_time=div_time[0].find('a')
+		print a_time
+		time.append(a_time.get('title'))
+	return (nick_name,nickname_href,content_text,time)
+(nick_name,nickname_href,content_text,time)=get_details(html)
+print nick_name
+print nickname_href
+print content_text
+print time
+#print get_nickname[0].get_text()
+#print len(div_content)

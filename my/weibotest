@@ -1,0 +1,57 @@
+#coding:utf-8
+import time
+import random
+num_iters=5
+a="hello"
+#sleeptime_rand = random.randint(1,10)
+i=1
+while (i<30):
+	url="http://s.weibo.com/weibo/%25E6%2596%25B0iPhone&page="+str(i)
+	print url
+	i+=1
+'''
+while (i<10):
+	print a
+	sleeptime_rand = random.randint(1,10)
+	time.sleep(sleeptime_rand)
+	i+=1
+'''
+'''
+import urllib
+url="天津"
+url_quote=urllib.quote(url)
+unurl="%25E5%25A4%25A9%25E6%25B4%25A5"
+url_unquote=urllib.unquote(unurl)
+print url_quote
+print url_unquote
+'''
+'''
+http://s.weibo.com/weibo/
+
+keyword:
+%25E5%25A4%25A9%25E6%25B4%25A5
+
+&typeall=1&suball=1&timescope=custom:2015-08-04-0:2015-08-20-0&page=2
+http://s.weibo.com/weibo/%25E5%25A4%25A9%25E6%25B4%25A5&typeall=1&suball=1&timescope=custom:2015-08-04-0:2015-08-20-0&page=3
+'''
+'''
+http://s.weibo.com/weibo/
+
+%25E5%25A4%25A9%25E6%25B4%25A5
+&region=custom:12:1000&typeall=1&suball=1
+&timescope=custom:2015-08-04-0:2015-08-20-0
+&page=2
+url = 'http://weibo.com/2421424850/myfollow?t=1&page='+str(i)  
+        req = urllib2.Request(url, headers=HEADERS)  
+        text = urllib2.urlopen(req).read()  
+  
+  
+        lines=text.splitlines()    
+        for line in lines:  
+         if line.startswith('<script>STK && STK.pageletM && STK.pageletM.view({"pid":"pl_relation_myf'):  
+            n = line.find('html":"')    
+            if n > 0:    
+                j = line[n + 7: -12].replace("\\", "")    
+                soup =BeautifulSoup(j)  
+                follows=soup.findAll('div','myfollow_list S_line2 SW_fun')  
+'''
